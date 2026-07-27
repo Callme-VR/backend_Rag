@@ -10,7 +10,7 @@ UPLOAD_DIRECETORY.mkdir(exist_ok=True)
 
 
 ALLOWED_EXTENSION={".pdf",".doc",".docx",".txt",".rtf",".json",".pptx",".csv",".md"}
-MAX_FILE_SIZE=50*1024*1024 #50 mb
+MAX_FILE_SIZE=200*1024*1024 #200 mb
 
 def upload_file(Source_path)->dict:
     """
@@ -32,7 +32,7 @@ def upload_file(Source_path)->dict:
     file_size=src_path_name.stat().st_size
     if file_size>MAX_FILE_SIZE:
         raise ValueError(
-            f"File is too large,maximum allowed {MAX_FILE_SIZE/1000}"
+            f"File is too large,maximum allowed {MAX_FILE_SIZE/1000/1000}"
         )
     # generates the unique number filename to avoid coliision/overwrite
     unique_name=f"{uuid.uuid4().hex}{ext}"
