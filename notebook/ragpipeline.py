@@ -1,4 +1,5 @@
 
+from operator import length_hint
 import os
 from typing import TypedDict, Annotated
 
@@ -60,3 +61,59 @@ def process_all_pdf(pdf_directory):
   return all_documents
 
   # step-2
+
+
+
+# ------------------------------------------------
+# SPLIT DOCUMENTS INTO CHUNKS
+# ------------------------------------------------
+
+def chunks_splitting(documents,chunks_size=1000,chunks_overlap=250):
+
+
+  text_splitter=RecursiveCharacterTextSplitter(
+    chunk_size=chunks_size,
+    chunk_overlap=chunks_overlap,
+    length_function=len,
+    separators=["\n\n","\n","."," "],
+  )
+  split_docs=text_splitter.split_documents(documents)
+  print(f"\n split {len(documents)} documents into {len(split_docs)} chunks")
+
+  # show the example chunks
+
+  if split_docs:
+    print("\n example chunks")
+    print(split_docs[0].page_content[:350])
+    print("\n metadata:",split_docs[0].metadata)
+
+  return split_docs
+
+
+# Resolve backend root directory (parent of the notebook directory)
+backend_dir = Path(__file__).resolve().parent.parent
+
+# Point to 'Uploads' folder where data_loader.py saves files uploaded by the user client
+pdf_directory = backend_dir / "Uploads"
+
+# Ensure the uploads directory exists
+pdf_directory.mkdir(exist_ok=True)
+
+# step-1
+# load the pdfs
+documents=process_all_pdf(pdf_directory)
+chunked_data=chunks_splitting(documents)
+print(f"Total chunks created: {len(chunked_data)}")
+
+# step:3
+# Initialize embeddings
+# 
+
+
+
+
+
+
+# step:3
+
+# Initialize embeddings
