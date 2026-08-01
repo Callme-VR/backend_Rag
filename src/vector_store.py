@@ -13,7 +13,7 @@ class VectorStoreManager:
         """
         Initialize the vector store manager.
 
-        args:
+     args:
           collection_name: name of the ChromaDB collection
           persist_directory: directory to persist the database
         """
