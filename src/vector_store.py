@@ -38,7 +38,7 @@ class VectorStoreManager:
             print(f"Error initializing vector store: {e}")
             raise
 
-    def add_documents(self, texts: List[str], embeddings: np.ndarray, metadatas: List[Dict[str, Any]] = None):
+    def add_documents(self, texts: List[str], embeddings: np.ndarray, metadatas: List[Dict[str, Any]]):
         """
         Add documents with their embeddings to the vector store.
 
@@ -113,9 +113,19 @@ class VectorStoreManager:
             return 0
         return self.collection.count()
 
+    def get_sample_documents(self, limit: int = 10) -> Dict[str, Any]:
+        """Fetch sample documents from the collection safely."""
+        if self.collection is None:
+            return {"ids": [], "documents": [], "metadatas": []}
+        data = self.collection.get(limit=limit)
+        if isinstance(data, dict):
+            return data
+        return {"ids": [], "documents": [], "metadatas": []}
+
     def delete_collection(self):
         """Delete the entire collection."""
         if self.client is not None:
             self.client.delete_collection(self.collection_name)
             self.collection = None
             print(f"Deleted collection: {self.collection_name}")
+

@@ -1,30 +1,32 @@
-from importlib import metadata
-from pydantic import Field
-from typing import Dict,List,Any
-from pydantic import BaseModel
+from typing import Dict, List, Any
+from pydantic import BaseModel, Field
+
+
 class SearchRequest(BaseModel):
-  query:str=Field(...,example="What is the capital of France?")
-  n_result:int=Field(...,default=5,ge=1,le=20,example=5)
-
-class SearchResultItems(BaseModel):
-  rank:int
-  id:str
-  metadata:Dict[str,Any]
-  score:int
+    query: str = Field(...)
+    n_results: int = Field(...)
 
 
-class SearhResponse(BaseModel):
-  query:str
-  total_result:int
-  results:List[SearchResultItems]
+class SearchResultItem(BaseModel):
+    rank: int
+    score: float
+    content: str
+    metadata: Dict[str, Any]
+    id: str
+
+
+class SearchResponse(BaseModel):
+    query: str
+    total_results: int
+    results: List[SearchResultItem]
+
 
 class UploadResponse(BaseModel):
-  status:str
-  filename:str
-  saved_path:str
-  chunks_created:int
-  total_documents_in_store: int
-
+    status: str
+    filename: str
+    saved_path: str
+    chunks_created: int
+    total_documents_in_store: int
 
 
 class HealthResponse(BaseModel):

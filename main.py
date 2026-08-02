@@ -6,10 +6,10 @@ Pipeline flow: Upload → Load → Chunk → Embed → Store → Search
 
 from pathlib import Path
 
-from data_loader import upload_file, load_directory, chunk_documents
-from embedding import EmbeddingManager
-from vector_store import VectorStoreManager
-from search import SearchManager
+from src.data_loader import upload_file, load_directory, chunk_documents
+from src.embedding import EmbeddingManager
+from src.vector_store import VectorStoreManager
+from src.search import SearchManager
 
 
 def main():

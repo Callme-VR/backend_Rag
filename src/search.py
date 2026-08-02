@@ -1,8 +1,12 @@
 import numpy as np
 from typing import List, Dict, Any, Optional
 
-from embedding import EmbeddingManager
-from vector_store import VectorStoreManager
+try:
+    from src.embedding import EmbeddingManager
+    from src.vector_store import VectorStoreManager
+except ImportError:
+    from .embedding import EmbeddingManager
+    from .vector_store import VectorStoreManager
 
 
 class SearchManager:
